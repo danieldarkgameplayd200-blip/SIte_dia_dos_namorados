@@ -1,13 +1,17 @@
-SITE DIA DOS NAMORADOS — DANIEL & SOPHIA
+SITE DIA DOS NAMORADOS - DANIEL & SOPHIA
 
 Como abrir:
-1. Extraia o arquivo ZIP.
+1. Extraia este arquivo ZIP.
 2. Abra o arquivo index.html no navegador.
-3. Clique em "Abrir surpresa" para iniciar a música e as animações.
+3. Clique no botão de música ou em “Abrir surpresa” para liberar o áudio.
 
-Pastas:
-- assets/fotos: fotos usadas na galeria e capa.
-- assets/audio: música principal enviada pelo usuário.
+Observação importante:
+O MP3 já está inserido dentro do site em assets/audio/daniel-sophia-mix.mp3.
+Navegadores normalmente bloqueiam música automática, por isso o áudio começa após um clique.
 
-Observação:
-O navegador normalmente bloqueia música automática. Por isso, o áudio começa depois do clique no botão inicial ou no player.
+Arquivos principais:
+- index.html: estrutura do site
+- style.css: visual e responsividade
+- script.js: animações e player
+- assets/fotos: fotos otimizadas
+- assets/audio: música integrada

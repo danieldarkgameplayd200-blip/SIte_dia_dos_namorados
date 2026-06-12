@@ -5,6 +5,7 @@ const intro = $('#intro');
 const enterBtn = $('#enterBtn');
 const audio = $('#mainAudio');
 const playBtn = $('#playBtn');
+const jumpMusicBtn = $('#jumpMusicBtn');
 const musicStatus = $('#musicStatus');
 const progressBar = $('#progressBar');
 const heartsLayer = $('#heartsLayer');
@@ -15,141 +16,177 @@ const modal = $('#photoModal');
 const modalImg = $('#modalImg');
 const closeModal = $('#closeModal');
 
-const heroMessage = 'Daniel fez esse cantinho para você, Sophia. Um presente simples, mas cheio de sentimento, fotos, música e palavras que vêm direto do coração.';
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isSmallScreen = window.matchMedia('(max-width: 620px)').matches;
+const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+const heroMessage = 'Daniel fez esse cantinho para você, Sophia: fotos, cartas, música e uma surpresa feita do jeito mais carinhoso possível.';
 let typingIndex = 0;
+let heartTimer = null;
+let lastHeartBurst = 0;
 
 function typeHeroText(){
   const el = $('#typeText');
   if(!el) return;
+  if(reduceMotion){
+    el.textContent = heroMessage;
+    return;
+  }
   el.textContent = heroMessage.slice(0, typingIndex++);
-  if(typingIndex <= heroMessage.length) setTimeout(typeHeroText, 32);
+  if(typingIndex <= heroMessage.length) window.setTimeout(typeHeroText, 28);
 }
 
 function makeHeart(){
+  if(reduceMotion || document.hidden || !heartsLayer) return;
   const heart = document.createElement('span');
   heart.className = 'heart';
-  const symbols = ['❤️','💖','💕','💘','💗','♥'];
-  heart.textContent = symbols[Math.floor(Math.random()*symbols.length)];
-  heart.style.left = Math.random()*100 + 'vw';
-  heart.style.fontSize = (14 + Math.random()*24) + 'px';
-  heart.style.setProperty('--drift', (Math.random()*220 - 110) + 'px');
-  heart.style.animationDuration = (5 + Math.random()*5) + 's';
+  heart.textContent = ['❤️','💖','💕','💘','💗','♥'][Math.floor(Math.random()*6)];
+  heart.style.left = `${Math.random()*100}vw`;
+  heart.style.fontSize = `${14 + Math.random()*(isSmallScreen ? 16 : 24)}px`;
+  heart.style.setProperty('--drift', `${Math.random()*(isSmallScreen ? 120 : 220) - (isSmallScreen ? 60 : 110)}px`);
+  heart.style.animationDuration = `${5 + Math.random()*4}s`;
   heartsLayer.appendChild(heart);
-  setTimeout(() => heart.remove(), 10500);
+  window.setTimeout(() => heart.remove(), 9500);
 }
 
-let heartTimer = null;
 function startHearts(){
-  if(heartTimer) return;
-  for(let i=0;i<18;i++) setTimeout(makeHeart, i*110);
-  heartTimer = setInterval(makeHeart, 360);
+  if(reduceMotion || heartTimer) return;
+  const initial = isSmallScreen ? 8 : 14;
+  for(let i = 0; i < initial; i++) window.setTimeout(makeHeart, i * 130);
+  heartTimer = window.setInterval(makeHeart, isSmallScreen ? 760 : 440);
 }
 
 function burstHearts(x = window.innerWidth/2, y = window.innerHeight/2){
-  for(let i=0;i<34;i++){
+  if(reduceMotion) return;
+  const now = Date.now();
+  if(now - lastHeartBurst < 450) return;
+  lastHeartBurst = now;
+  const total = isSmallScreen ? 18 : 30;
+  for(let i = 0; i < total; i++){
     const h = document.createElement('span');
     h.className = 'burst-heart';
     h.textContent = ['❤️','💗','💖','💕'][Math.floor(Math.random()*4)];
-    h.style.left = x + 'px';
-    h.style.top = y + 'px';
+    h.style.left = `${x}px`;
+    h.style.top = `${y}px`;
     const angle = Math.random() * Math.PI * 2;
-    const distance = 60 + Math.random()*190;
-    h.style.setProperty('--x', Math.cos(angle)*distance + 'px');
-    h.style.setProperty('--y', Math.sin(angle)*distance + 'px');
-    h.style.fontSize = (18 + Math.random()*25) + 'px';
+    const distance = 55 + Math.random() * (isSmallScreen ? 115 : 180);
+    h.style.setProperty('--x', `${Math.cos(angle)*distance}px`);
+    h.style.setProperty('--y', `${Math.sin(angle)*distance}px`);
+    h.style.fontSize = `${17 + Math.random()*23}px`;
     document.body.appendChild(h);
-    setTimeout(() => h.remove(), 1000);
+    window.setTimeout(() => h.remove(), 950);
   }
 }
 
 async function tryPlayAudio(){
-  if(!audio) return;
+  if(!audio || !playBtn || !musicStatus) return;
   try{
     await audio.play();
     playBtn.textContent = '❚❚';
     musicStatus.textContent = 'Tocando agora';
-  }catch(err){
+  }catch(_err){
     musicStatus.textContent = 'Clique no play para tocar';
   }
 }
 
 function pauseAudio(){
+  if(!audio || !playBtn || !musicStatus) return;
   audio.pause();
   playBtn.textContent = '▶';
   musicStatus.textContent = 'Pausado';
 }
 
+function toggleAudio(){
+  if(!audio) return;
+  if(audio.paused) tryPlayAudio(); else pauseAudio();
+}
+
 enterBtn?.addEventListener('click', async () => {
-  intro.classList.add('hidden');
+  intro?.classList.add('hidden');
   startHearts();
   typeHeroText();
   burstHearts(window.innerWidth/2, window.innerHeight/2);
   await tryPlayAudio();
-});
+}, {passive:true});
 
-playBtn?.addEventListener('click', () => {
-  if(audio.paused) tryPlayAudio(); else pauseAudio();
-});
+playBtn?.addEventListener('click', toggleAudio);
+jumpMusicBtn?.addEventListener('click', toggleAudio);
 
 audio?.addEventListener('timeupdate', () => {
-  if(!audio.duration) return;
-  progressBar.style.width = ((audio.currentTime/audio.duration)*100) + '%';
+  if(!audio.duration || !progressBar) return;
+  progressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
 });
 
 audio?.addEventListener('ended', () => {
-  playBtn.textContent = '▶';
-  musicStatus.textContent = 'Finalizada';
+  if(playBtn) playBtn.textContent = '▶';
+  if(musicStatus) musicStatus.textContent = 'Finalizada';
 });
 
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-},{threshold:.12});
-$$('.reveal').forEach(el => observer.observe(el));
+if('IntersectionObserver' in window){
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {rootMargin:'0px 0px -6% 0px', threshold:.08});
+  $$('.reveal').forEach(el => observer.observe(el));
+}else{
+  $$('.reveal').forEach(el => el.classList.add('visible'));
+}
 
-quickHeart?.addEventListener('click', (e)=>{
+quickHeart?.addEventListener('click', (e) => {
   burstHearts(e.clientX, e.clientY);
   startHearts();
 });
 
-surpriseBtn?.addEventListener('click', (e)=>{
+surpriseBtn?.addEventListener('click', (e) => {
   burstHearts(e.clientX, e.clientY);
   startHearts();
-  surpriseText.textContent = 'Sophia, mesmo que esse site tenha várias fotos, animações e palavras bonitas, a parte mais importante é simples: eu gosto muito de você. Obrigado por ser essa pessoa tão especial na minha vida. Assinado: Daniel.';
+  if(surpriseText){
+    surpriseText.textContent = 'Sophia, mesmo que esse site tenha várias fotos, animações e músicas, a parte mais importante é simples: eu gosto muito de você. Obrigado por ser essa pessoa tão especial na minha vida. Assinado: Daniel.';
+  }
+  tryPlayAudio();
 });
 
 $$('.photo-card').forEach(card => {
   card.addEventListener('click', () => {
-    modalImg.src = card.dataset.img;
+    const img = card.dataset.img;
+    if(!img || !modal || !modalImg) return;
+    modalImg.src = img;
     modal.classList.add('active');
     modal.setAttribute('aria-hidden','false');
   });
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const rotateY = ((x / rect.width) - .5) * 7;
-    const rotateX = ((y / rect.height) - .5) * -7;
-    card.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
+
+  if(canHover){
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const rotateY = ((e.clientX - rect.left) / rect.width - .5) * 6;
+      const rotateX = ((e.clientY - rect.top) / rect.height - .5) * -6;
+      card.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+    }, {passive:true});
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  }
 });
 
 function closePhoto(){
+  if(!modal || !modalImg) return;
   modal.classList.remove('active');
   modal.setAttribute('aria-hidden','true');
-  setTimeout(()=>{ modalImg.src = ''; }, 250);
+  window.setTimeout(() => { modalImg.src = ''; }, 220);
 }
 closeModal?.addEventListener('click', closePhoto);
-modal?.addEventListener('click', (e)=>{ if(e.target === modal) closePhoto(); });
-document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closePhoto(); });
+modal?.addEventListener('click', (e) => { if(e.target === modal) closePhoto(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closePhoto(); });
+
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden && heartTimer){
+    clearInterval(heartTimer);
+    heartTimer = null;
+  }
+});
 
 window.addEventListener('pointerdown', () => {
-  if(intro.classList.contains('hidden')) startHearts();
-}, {once:true});
+  if(intro?.classList.contains('hidden')) startHearts();
+}, {once:true, passive:true});
