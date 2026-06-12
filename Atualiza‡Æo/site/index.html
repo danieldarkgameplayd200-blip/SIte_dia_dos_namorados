@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#170713" />
+  <meta name="description" content="Uma surpresa romântica de Dia dos Namorados feita por Daniel para Sophia." />
+  <title>Daniel & Sophia — Dia dos Namorados</title>
+  <link rel="preload" as="image" href="assets/fotos/sophia-07.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/fotos/sophia-01.webp" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <audio id="mainAudio" src="assets/audio/daniel-sophia-mix.mp3" preload="metadata" loop></audio>
+
+  <div class="bg-glow bg-glow-a" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-b" aria-hidden="true"></div>
+  <div id="heartsLayer" class="hearts-layer" aria-hidden="true"></div>
+
+  <section id="intro" class="intro-screen">
+    <div class="intro-card">
+      <div class="intro-photo">
+        <img src="assets/fotos/sophia-07.webp" alt="Foto da Sophia" width="1200" height="675" fetchpriority="high" />
+      </div>
+      <p class="eyebrow">Presente feito com amor</p>
+      <h1>Daniel & Sophia</h1>
+      <p class="intro-text">Um cantinho só dela, com fotos, música e palavras que vieram direto do coração.</p>
+      <button id="enterBtn" class="main-btn">Abrir surpresa ❤️</button>
+      <small>Toque para liberar a música e as animações.</small>
+    </div>
+  </section>
+
+  <header id="inicio" class="hero section">
+    <nav class="topbar" aria-label="Menu principal">
+      <a href="#inicio" class="brand" aria-label="Início">D<span>♡</span>S</a>
+      <div class="navlinks">
+        <a href="#cartas">Cartas</a>
+        <a href="#galeria">Fotos</a>
+        <a href="#musica">Música</a>
+        <a href="#surpresa">Surpresa</a>
+      </div>
+    </nav>
+
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Dia dos Namorados</p>
+        <h2>Sophia, esse site é só um pedacinho do quanto você é especial para mim.</h2>
+        <p id="typeText" class="type-text" aria-live="polite"></p>
+        <div class="hero-actions">
+          <a class="main-btn" href="#cartas">Ler as cartas</a>
+          <button id="quickHeart" class="ghost-btn" type="button">Mandar coração</button>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-label="Montagem de fotos da Sophia">
+        <div class="photo-stack">
+          <span class="floating-badge">Para Sophia</span>
+          <img class="stack-img stack-1" src="assets/fotos/sophia-01.webp" alt="Foto da Sophia" width="675" height="1200" fetchpriority="high" />
+          <img class="stack-img stack-2" src="assets/fotos/sophia-05.webp" alt="Foto da Sophia" width="900" height="1200" loading="lazy" decoding="async" />
+          <img class="stack-img stack-3" src="assets/fotos/sophia-09.webp" alt="Foto da Sophia" width="1200" height="900" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="love-panel section reveal">
+      <article class="panel-card big-message">
+        <span class="spark">✦</span>
+        <h2>Para a garota que deixa tudo mais bonito</h2>
+        <p>
+          Sophia, eu queria te entregar algo diferente. Não só uma mensagem, não só uma foto, mas um lugar feito com carinho em cada detalhe. Cada coração, cada brilho e cada palavra aqui existem para te lembrar uma coisa simples: você é muito amada.
+        </p>
+      </article>
+
+      <div class="mini-cards" aria-label="Motivos especiais">
+        <article class="mini-card"><span>01</span><strong>Seu jeito</strong><p>Você tem uma presença que deixa qualquer dia mais leve.</p></article>
+        <article class="mini-card"><span>02</span><strong>Seu olhar</strong><p>É daqueles que ficam na cabeça mesmo depois de longe.</p></article>
+        <article class="mini-card"><span>03</span><strong>Nós dois</strong><p>Eu quero que a nossa história fique cada vez mais bonita.</p></article>
+      </div>
+    </section>
+
+    <section id="cartas" class="letters section">
+      <div class="section-title reveal">
+        <p class="eyebrow">Cartas especiais</p>
+        <h2>Duas cartas para você guardar no coração</h2>
+      </div>
+
+      <div class="letter-grid">
+        <article class="letter-card reveal">
+          <div class="letter-top"><span>💌</span><h3>Carta romântica</h3></div>
+          <p>
+            Sophia, eu não sei explicar exatamente em qual momento você virou esse lugar bonito dentro de mim, mas eu sei que aconteceu de um jeito natural. Você chegou e foi deixando tudo com mais cor, mais sentido e mais vontade de viver momentos bons.
+          </p>
+          <p>
+            Tem coisas em você que eu admiro sem nem perceber: seu jeitinho, sua presença, sua forma de existir. Às vezes, só de pensar em você, meu dia já muda. Talvez seja isso que eu mais goste: você não precisa fazer esforço para ser especial, você simplesmente é.
+          </p>
+          <p>
+            Eu fiz esse site porque queria te entregar algo que fosse além de uma mensagem comum. Queria que você visse que eu penso em você com carinho, que reparo nos detalhes e que meu sentimento é sincero. Você merece ser lembrada, cuidada e amada do jeito mais bonito possível.
+          </p>
+          <p class="signature">Com carinho,<br />Daniel</p>
+        </article>
+
+        <article class="letter-card featured reveal">
+          <div class="letter-top"><span>❤️</span><h3>Carta de amor</h3></div>
+          <p>
+            Meu amor, Sophia, se eu pudesse colocar em palavras tudo que você significa para mim, talvez ainda faltasse espaço. Porque tem sentimento que não cabe em frase, não cabe em texto e nem nesse site inteiro. Mesmo assim eu tentei, porque você merece saber.
+          </p>
+          <p>
+            Eu amo a forma como você faz parte dos meus pensamentos. Amo imaginar nossos momentos. Amo saber que existe alguém como você na minha vida. Você é aquela pessoa que dá vontade de cuidar, proteger, ver sorrindo e fazer feliz todos os dias.
+          </p>
+          <p>
+            Que esse Dia dos Namorados seja só mais uma página da nossa história. Que venham muitas outras: com risadas, abraços, planos, conversas bobas, fotos, músicas e lembranças que a gente vai carregar para sempre.
+          </p>
+          <p>
+            Sophia, você é meu amor, minha inspiração e a pessoa que eu escolho lembrar hoje e em todos os dias. Obrigado por existir e por ser tão única para mim.
+          </p>
+          <p class="signature">Eu te amo,<br />Daniel</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="galeria" class="gallery-section section">
+      <div class="section-title reveal">
+        <p class="eyebrow">Galeria da Sophia</p>
+        <h2>Alguns registros da pessoa que deixa meu coração bobo</h2>
+      </div>
+
+      <div class="gallery-grid reveal" id="galleryGrid">
+        <button class="photo-card tall" data-img="assets/fotos/sophia-01.webp" type="button"><img src="assets/fotos/sophia-01.webp" alt="Foto da Sophia" width="675" height="1200" loading="lazy" decoding="async" /><span>Minha favorita de hoje</span></button>
+        <button class="photo-card" data-img="assets/fotos/sophia-02.webp" type="button"><img src="assets/fotos/sophia-02.webp" alt="Foto da Sophia" width="675" height="1200" loading="lazy" decoding="async" /><span>Jeitinho único</span></button>
+        <button class="photo-card" data-img="assets/fotos/sophia-03.webp" type="button"><img src="assets/fotos/sophia-03.webp" alt="Foto da Sophia" width="675" height="1200" loading="lazy" decoding="async" /><span>Linda do seu jeito</span></button>
+        <button class="photo-card wide" data-img="assets/fotos/sophia-07.webp" type="button"><img src="assets/fotos/sophia-07.webp" alt="Foto da Sophia" width="1200" height="675" loading="lazy" decoding="async" /><span>Um olhar que marca</span></button>
+        <button class="photo-card" data-img="assets/fotos/sophia-05.webp" type="button"><img src="assets/fotos/sophia-05.webp" alt="Foto da Sophia" width="900" height="1200" loading="lazy" decoding="async" /><span>Meu pensamento bom</span></button>
+        <button class="photo-card tall" data-img="assets/fotos/sophia-06.webp" type="button"><img src="assets/fotos/sophia-06.webp" alt="Foto da Sophia" width="1042" height="1200" loading="lazy" decoding="async" /><span>Especial demais</span></button>
+        <button class="photo-card" data-img="assets/fotos/sophia-08.webp" type="button"><img src="assets/fotos/sophia-08.webp" alt="Foto da Sophia" width="675" height="1200" loading="lazy" decoding="async" /><span>Só ela</span></button>
+        <button class="photo-card wide" data-img="assets/fotos/sophia-09.webp" type="button"><img src="assets/fotos/sophia-09.webp" alt="Foto da Sophia" width="1200" height="900" loading="lazy" decoding="async" /><span>Minha Sophia</span></button>
+        <button class="photo-card" data-img="assets/fotos/sophia-04.webp" type="button"><img src="assets/fotos/sophia-04.webp" alt="Foto da Sophia" width="900" height="1200" loading="lazy" decoding="async" /><span>Para guardar</span></button>
+      </div>
+    </section>
+
+    <section id="musica" class="music-section section reveal">
+      <div class="music-card panel-card">
+        <p class="eyebrow">Nossa trilha</p>
+        <h2>Hope + Moonlight</h2>
+        <p>
+          Juntei as duas músicas em um único MP3, com transição suave, para tocar direto enquanto a Sophia vê a surpresa.
+        </p>
+        <button id="jumpMusicBtn" class="ghost-btn" type="button">Tocar / pausar música</button>
+      </div>
+    </section>
+
+    <section class="timeline section">
+      <div class="section-title reveal">
+        <p class="eyebrow">Nossa vibe</p>
+        <h2>O que eu quero viver com você</h2>
+      </div>
+      <div class="timeline-list reveal">
+        <div class="time-item"><span></span><h3>Mais momentos simples</h3><p>Porque com você, até o simples fica especial.</p></div>
+        <div class="time-item"><span></span><h3>Mais fotos para guardar</h3><p>Registros de uma história que eu quero continuar construindo.</p></div>
+        <div class="time-item"><span></span><h3>Mais motivos para sorrir</h3><p>Eu quero ser alguém que te faz bem de verdade.</p></div>
+        <div class="time-item"><span></span><h3>Mais nós</h3><p>Sem pressa, com carinho, do nosso jeito.</p></div>
+      </div>
+    </section>
+
+    <section id="surpresa" class="surprise section reveal">
+      <div class="surprise-card panel-card">
+        <p class="eyebrow">Surpresa final</p>
+        <h2>Sophia, aperta esse botão quando quiser receber um pedacinho do meu coração.</h2>
+        <button id="surpriseBtn" class="main-btn big" type="button">Clique aqui, meu amor ❤️</button>
+        <p id="surpriseText" class="surprise-text"></p>
+      </div>
+    </section>
+  </main>
+
+  <aside class="music-dock" id="musicDock" aria-label="Controle da música">
+    <button id="playBtn" class="music-btn" aria-label="Tocar ou pausar música">▶</button>
+    <div class="music-info">
+      <strong>Hope + Moonlight — XXXTentacion</strong>
+      <span id="musicStatus">Clique para tocar</span>
+      <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+    </div>
+  </aside>
+
+  <div id="photoModal" class="photo-modal" aria-hidden="true" role="dialog" aria-label="Foto ampliada">
+    <button id="closeModal" class="close-modal" aria-label="Fechar foto">×</button>
+    <img id="modalImg" src="" alt="Foto ampliada da Sophia" />
+  </div>
+
+  <footer>
+    <p>Feito por Daniel para Sophia — com amor, carinho e muitos corações. ❤️</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
